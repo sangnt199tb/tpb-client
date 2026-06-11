@@ -34,7 +34,7 @@ public class HomeController {
                         body {
                             margin: 0;
                             min-height: 100vh;
-                            font-family: Arial, "Helvetica Neue", sans-serif;
+                            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
                             color: var(--tpb-ink);
                             background:
                                     radial-gradient(circle at 16% 18%, rgba(111, 45, 189, 0.13), transparent 30%),
@@ -252,52 +252,80 @@ public class HomeController {
                         }
 
                         .sso-list {
-                            display: flex;
-                            justify-content: center;
-                            gap: 12px;
+                            display: grid;
+                            grid-template-columns: repeat(3, minmax(0, 1fr));
+                            gap: 10px;
                         }
 
                         .sso-button {
-                            display: inline-flex;
+                            min-height: 74px;
+                            display: grid;
                             align-items: center;
+                            align-content: center;
                             justify-content: center;
-                            width: 38px;
-                            height: 38px;
+                            justify-items: center;
+                            gap: 8px;
                             border: 1px solid var(--tpb-border);
-                            border-radius: 50%;
-                            color: #ffffff;
-                            font-size: 14px;
+                            border-radius: 8px;
+                            color: #323848;
+                            font-size: 13px;
                             font-weight: 800;
                             text-decoration: none;
                             background: #ffffff;
                             box-shadow: 0 6px 14px rgba(31, 39, 61, 0.08);
-                            transition: transform 0.18s ease, border-color 0.18s ease;
+                            transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease;
                         }
 
                         .sso-button:hover {
                             transform: translateY(-2px);
-                            border-color: #cad1dd;
+                            border-color: #cfe0ff;
+                            color: var(--tpb-blue);
                             text-decoration: none;
                         }
 
-                        .google {
-                            color: #4285f4;
+                        .method-icon {
+                            width: 34px;
+                            height: 34px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 50%;
+                            color: #ffffff;
+                            background: linear-gradient(135deg, var(--tpb-purple), var(--tpb-blue));
+                            font-size: 12px;
+                            font-weight: 800;
                         }
 
-                        .facebook {
-                            background: #2f73d9;
+                        .face-scan {
+                            position: relative;
+                            width: 24px;
+                            height: 24px;
+                            border: 2px solid currentColor;
+                            border-radius: 8px;
                         }
 
-                        .zalo {
-                            background: #1e9bff;
+                        .face-scan::before,
+                        .face-scan::after {
+                            content: "";
+                            position: absolute;
+                            background: currentColor;
                         }
 
-                        .vneid {
-                            background: #d72229;
+                        .face-scan::before {
+                            width: 4px;
+                            height: 4px;
+                            top: 7px;
+                            left: 6px;
+                            border-radius: 50%;
+                            box-shadow: 8px 0 0 currentColor;
                         }
 
-                        .microsoft {
-                            background: conic-gradient(#7fba00 0 25%, #00a4ef 0 50%, #ffb900 0 75%, #f25022 0);
+                        .face-scan::after {
+                            width: 10px;
+                            height: 2px;
+                            left: 6px;
+                            bottom: 6px;
+                            border-radius: 999px;
                         }
 
                         .help-row {
@@ -325,6 +353,10 @@ public class HomeController {
                                 align-items: flex-start;
                                 flex-direction: column;
                                 gap: 10px;
+                            }
+
+                            .sso-list {
+                                grid-template-columns: 1fr;
                             }
                         }
                     </style>
@@ -366,16 +398,23 @@ public class HomeController {
                                     <a href="/dashboard">Quên mật khẩu?</a>
                                 </div>
 
-                                <button class="login-button" type="submit">Đăng nhập bằng VNeID</button>
+                                <button class="login-button" type="submit">Đăng nhập</button>
                             </form>
 
-                            <div class="divider">Hoặc liên kết tài khoản đăng nhập với</div>
+                            <div class="divider">Hoặc sử dụng phương thức khác</div>
                             <div class="sso-list" aria-label="Phương thức đăng nhập khác">
-                                <a class="sso-button google" href="/dashboard" aria-label="Google">G</a>
-                                <a class="sso-button facebook" href="/dashboard" aria-label="Facebook">f</a>
-                                <a class="sso-button zalo" href="/dashboard" aria-label="Zalo">Z</a>
-                                <a class="sso-button vneid" href="/dashboard" aria-label="VNeID">ID</a>
-                                <a class="sso-button microsoft" href="/dashboard" aria-label="Microsoft"></a>
+                                <a class="sso-button" href="/dashboard" aria-label="Face ID">
+                                    <span class="method-icon"><span class="face-scan" aria-hidden="true"></span></span>
+                                    Face ID
+                                </a>
+                                <a class="sso-button" href="/dashboard" aria-label="VNeID">
+                                    <span class="method-icon">ID</span>
+                                    VNeID
+                                </a>
+                                <a class="sso-button" href="/dashboard" aria-label="Smart OTP">
+                                    <span class="method-icon">OTP</span>
+                                    Smart OTP
+                                </a>
                             </div>
 
                             <div class="help-row">
@@ -430,7 +469,7 @@ public class HomeController {
                         body {
                             margin: 0;
                             min-height: 100vh;
-                            font-family: Arial, "Helvetica Neue", sans-serif;
+                            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
                             color: var(--ink);
                             background: var(--page);
                         }
@@ -507,14 +546,14 @@ public class HomeController {
                         }
 
                         .nav-icon {
-                            width: 20px;
+                            width: 24px;
                             height: 20px;
                             display: inline-flex;
                             align-items: center;
                             justify-content: center;
                             border: 1px solid currentColor;
                             border-radius: 5px;
-                            font-size: 12px;
+                            font-size: 10px;
                             flex: 0 0 auto;
                         }
 
@@ -920,7 +959,7 @@ public class HomeController {
                             </div>
                             <nav class="nav">
                                 <div class="nav-group">
-                                    <a class="nav-item active" href="/dashboard"><span class="nav-icon">t</span>Tổng quan<span class="chevron">›</span></a>
+                                    <a class="nav-item active" href="/dashboard"><span class="nav-icon">TQ</span>Tổng quan<span class="chevron">&gt;</span></a>
                                     <div class="subnav">
                                         <a class="current" href="/dashboard">Tổng quan tài khoản</a>
                                         <a href="/dashboard">Tài khoản thanh toán</a>
@@ -929,7 +968,7 @@ public class HomeController {
                                     </div>
                                 </div>
                                 <div class="nav-group">
-                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">g</span>Giao dịch<span class="chevron">›</span></a>
+                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">GD</span>Giao dịch<span class="chevron">&gt;</span></a>
                                     <div class="subnav">
                                         <a href="/dashboard">Chuyển tiền</a>
                                         <a href="/dashboard">Thanh toán hóa đơn</a>
@@ -939,7 +978,7 @@ public class HomeController {
                                     </div>
                                 </div>
                                 <div class="nav-group">
-                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">c</span>Thẻ<span class="chevron">›</span></a>
+                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">TH</span>Thẻ<span class="chevron">&gt;</span></a>
                                     <div class="subnav">
                                         <a href="/dashboard">Quản lý thẻ</a>
                                         <a href="/dashboard">Mở/khóa thẻ</a>
@@ -948,7 +987,7 @@ public class HomeController {
                                     </div>
                                 </div>
                                 <div class="nav-group">
-                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">v</span>Tiết kiệm & Vay<span class="chevron">›</span></a>
+                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">TV</span>Tiết kiệm & Vay<span class="chevron">&gt;</span></a>
                                     <div class="subnav">
                                         <a href="/dashboard">Sổ tiết kiệm</a>
                                         <a href="/dashboard">Mở tiết kiệm online</a>
@@ -957,7 +996,7 @@ public class HomeController {
                                     </div>
                                 </div>
                                 <div class="nav-group">
-                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">b</span>Bảo mật<span class="chevron">›</span></a>
+                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">BM</span>Bảo mật<span class="chevron">&gt;</span></a>
                                     <div class="subnav">
                                         <a href="/dashboard">Bảo mật tài khoản</a>
                                         <a href="/dashboard">Đổi mật khẩu</a>
@@ -967,7 +1006,7 @@ public class HomeController {
                                     </div>
                                 </div>
                                 <div class="nav-group">
-                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">h</span>Hồ sơ<span class="chevron">›</span></a>
+                                    <a class="nav-item" href="/dashboard"><span class="nav-icon">HS</span>Hồ sơ<span class="chevron">&gt;</span></a>
                                     <div class="subnav">
                                         <a href="/dashboard">Thông tin cá nhân</a>
                                         <a href="/dashboard">Thông tin định danh</a>
@@ -1030,10 +1069,10 @@ public class HomeController {
                                 </section>
 
                                 <section class="quick-actions" aria-label="Thao tác nhanh">
-                                    <a class="quick-action" href="/dashboard"><span class="action-icon">↗</span>Chuyển tiền</a>
+                                    <a class="quick-action" href="/dashboard"><span class="action-icon">CT</span>Chuyển tiền</a>
                                     <a class="quick-action" href="/dashboard"><span class="action-icon">QR</span>Quét mã QR</a>
-                                    <a class="quick-action" href="/dashboard"><span class="action-icon">₫</span>Thanh toán hóa đơn</a>
-                                    <a class="quick-action" href="/dashboard"><span class="action-icon">☎</span>Nạp điện thoại</a>
+                                    <a class="quick-action" href="/dashboard"><span class="action-icon">HD</span>Thanh toán hóa đơn</a>
+                                    <a class="quick-action" href="/dashboard"><span class="action-icon">NT</span>Nạp điện thoại</a>
                                 </section>
 
                                 <section class="info-grid" aria-label="Thông tin tài khoản">
